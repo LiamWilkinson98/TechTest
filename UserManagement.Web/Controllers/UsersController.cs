@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http.Features;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using UserManagement.Services.Domain.Implementations;
 using UserManagement.Services.Domain.Interfaces;
 using UserManagement.Web.Models.Users;
@@ -25,21 +27,36 @@ public class UsersController : Controller
             DateOfBirth = p.DateOfBirth,
             IsActive = p.IsActive
         });
-
         //continue as normal if Show All is selected
         if (userType == "All")
         {
-
+            
         }
-        //if Active Only button is clicked, recreate IEnumerable with only active accounts
+        //if Active Only button is clicked, call FilterByActive and select only active accounts
         else if (userType == "Active")
         {
-            items = items.Where(p => p.IsActive == true);
+            items = _userService.FilterByActive(true).Select(p => new UserListItemViewModel
+            {
+                Id = p.Id,
+                Forename = p.Forename,
+                Surname = p.Surname,
+                Email = p.Email,
+                DateOfBirth = p.DateOfBirth,
+                IsActive = p.IsActive
+            });
         }
-        //if Non Active button is clicked, recreate IEnumerable with only inactive accounts
+        //if Non Active button is clicked, call FilterByActive and select only inactive accounts
         else if (userType == "Inactive")
         {
-            items = items.Where(p => p.IsActive == false);
+            items = _userService.FilterByActive(false).Select(p => new UserListItemViewModel
+            {
+                Id = p.Id,
+                Forename = p.Forename,
+                Surname = p.Surname,
+                Email = p.Email,
+                DateOfBirth = p.DateOfBirth,
+                IsActive = p.IsActive
+            });
         }
 
 
@@ -55,8 +72,8 @@ public class UsersController : Controller
     [HttpGet]
     public ViewResult ViewUser(long userId)
     {
-        //select user with Id acquired from users page
-        var items = _userService.GetAll().Where(p => p.Id == userId).Select(p => new UserListItemViewModel
+        //call FilterById to select user account with matching ID
+        var items = _userService.FilterById(userId).Select(p => new UserListItemViewModel
         {
             Id = userId,
             Forename = p.Forename,
@@ -68,4 +85,11 @@ public class UsersController : Controller
         var model = new UserListViewModel{Items = items.ToList()};
         return View(model);
     }
+
+   // [Route("users")]
+   // [HttpPost]
+   // public Task<IActionResult> AddUser(UserListItemViewModel newUser)
+   // {
+        
+   // }
 }

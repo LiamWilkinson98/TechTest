@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UserManagement.Data;
 using UserManagement.Models;
 using UserManagement.Services.Domain.Interfaces;
@@ -18,7 +19,16 @@ public class UserService : IUserService
     /// <returns></returns>
     public IEnumerable<User> FilterByActive(bool isActive)
     {
-        throw new NotImplementedException();
+        //find all users that are either active or inactive, depending on how it's called
+        var allUsers = _dataAccess.GetAll<User>().Where(p => p.IsActive == isActive);
+        return allUsers;
+  
+    }
+
+    public IEnumerable<User> FilterById(long userId)
+    {
+        var user = _dataAccess.GetAll<User>().Where(p => p.Id == userId);
+        return user;
     }
 
     public IEnumerable<User> GetAll() => _dataAccess.GetAll<User>();
