@@ -1,2 +1,28 @@
-﻿@model UserManagement.Web.Models.Users.UserListViewModel
-<h2>Add A User</h2>
+﻿@model UserManagement.Web.Models.Users.UserListItemViewModel
+
+
+<h1>Create A User</h1>
+
+<div>
+	<form asp-controller="Users" asp-action="CreateUser">
+		<fieldset>
+			<label>First Name: </label>
+			<input asp-for="Forename"/>
+			<p></p>
+			<label>Surname: </label>
+			<input asp-for="Surname"/>
+			<p></p>
+			<label>Email: </label>
+			<input asp-for="Email"/>
+			<p></p>
+			<label>Date of Birth: </label>
+			<input asp-for="DateOfBirth"/>
+			<p></p>
+			<label>Is User Active: </label>
+			<input asp-for="IsActive"/>
+			<p></p>
+			<input type="submit" />
+		</fieldset>
+	</form>
+</div>
+

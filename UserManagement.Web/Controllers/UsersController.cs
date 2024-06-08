@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using UserManagement.Models;
 using UserManagement.Services.Domain.Implementations;
 using UserManagement.Services.Domain.Interfaces;
 using UserManagement.Web.Models.Users;
@@ -28,10 +29,7 @@ public class UsersController : Controller
             IsActive = p.IsActive
         });
         //continue as normal if Show All is selected
-        if (userType == "All")
-        {
-            
-        }
+        if (userType == "All") { }
         //if Active Only button is clicked, call FilterByActive and select only active accounts
         else if (userType == "Active")
         {
@@ -68,7 +66,7 @@ public class UsersController : Controller
         return View(model);
     }
 
-    [Route("users")]
+    [Route("ViewUser")]
     [HttpGet]
     public ViewResult ViewUser(long userId)
     {
@@ -86,10 +84,20 @@ public class UsersController : Controller
         return View(model);
     }
 
-   // [Route("users")]
-   // [HttpPost]
-   // public Task<IActionResult> AddUser(UserListItemViewModel newUser)
-   // {
-        
-   // }
+    [Route("AddUser")]
+    [HttpGet]
+    public ViewResult AddUser()
+    {
+        //change to AddUser page
+        return View();
+    }
+
+    
+    [HttpPost]
+    public ActionResult CreateUser(User user)
+    {
+        //add user and return to user list page
+        _userService.AddUser(user);
+        return RedirectToAction();
+    }
 }

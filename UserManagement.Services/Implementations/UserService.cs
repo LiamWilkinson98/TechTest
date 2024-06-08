@@ -31,5 +31,10 @@ public class UserService : IUserService
         return user;
     }
 
+    public void AddUser(User user)
+    {
+        _dataAccess.Create(user);
+    }
+
     public IEnumerable<User> GetAll() => _dataAccess.GetAll<User>();
 }

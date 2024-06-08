@@ -11,6 +11,7 @@ public interface IUserService
     /// <param name="isActive"></param>
     /// <returns></returns>
     IEnumerable<User> FilterByActive(bool isActive);
-    public IEnumerable<User> FilterById(long userId);
+    IEnumerable<User> FilterById(long userId);
+    void AddUser(User user);
     IEnumerable<User> GetAll();
 }
