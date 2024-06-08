@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using UserManagement.Services.Domain.Interfaces;
 using UserManagement.Web.Models.Users;
 
@@ -11,7 +12,7 @@ public class UsersController : Controller
     public UsersController(IUserService userService) => _userService = userService;
 
     [HttpGet]
-    public ViewResult List()
+    public ViewResult List(string userType)
     {
         var items = _userService.GetAll().Select(p => new UserListItemViewModel
         {
@@ -19,8 +20,26 @@ public class UsersController : Controller
             Forename = p.Forename,
             Surname = p.Surname,
             Email = p.Email,
+            DateOfBirth = p.DateOfBirth,
             IsActive = p.IsActive
         });
+
+        //continue as normal if Show All is selected
+        if (userType == "All")
+        {
+
+        }
+        //if Active Only button is clicked, recreate IEnumerable with only active accounts
+        else if (userType == "Active")
+        {
+            items = items.Where(p => p.IsActive == true);
+        }
+        //if Non Active button is clicked, recreate IEnumerable with only inactive accounts
+        else if (userType == "Inactive")
+        {
+            items = items.Where(p => p.IsActive == false);
+        }
+
 
         var model = new UserListViewModel
         {
