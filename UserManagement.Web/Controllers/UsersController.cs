@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Linq;
+using Microsoft.AspNetCore.Http.Features;
+using UserManagement.Services.Domain.Implementations;
 using UserManagement.Services.Domain.Interfaces;
 using UserManagement.Web.Models.Users;
 
@@ -46,6 +48,24 @@ public class UsersController : Controller
             Items = items.ToList()
         };
 
+        return View(model);
+    }
+
+    [Route("users")]
+    [HttpGet]
+    public ViewResult ViewUser(long userId)
+    {
+        //select user with Id acquired from users page
+        var items = _userService.GetAll().Where(p => p.Id == userId).Select(p => new UserListItemViewModel
+        {
+            Id = userId,
+            Forename = p.Forename,
+            Surname = p.Surname,
+            Email = p.Email,
+            DateOfBirth = p.DateOfBirth,
+            IsActive = p.IsActive
+        });
+        var model = new UserListViewModel{Items = items.ToList()};
         return View(model);
     }
 }
