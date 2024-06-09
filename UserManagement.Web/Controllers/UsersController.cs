@@ -58,12 +58,13 @@ public class UsersController : Controller
             });
         }
 
-
+        
         var model = new UserListViewModel
         {
-            Items = items.ToList()
+            //orders users by their ID
+            Items = items.OrderBy(p => p.Id).ToList()
         };
-
+        
         return View(model);
     }
 

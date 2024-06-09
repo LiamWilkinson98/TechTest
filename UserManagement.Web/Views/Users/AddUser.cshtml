@@ -7,16 +7,16 @@
 	<form asp-controller="Users" asp-action="CreateUser">
 		<fieldset>
 			<label>First Name: </label>
-			<input asp-for="Forename"/>
+			<input asp-for="Forename" required/>
 			<p></p>
 			<label>Surname: </label>
-			<input asp-for="Surname"/>
+			<input asp-for="Surname" required/>
 			<p></p>
 			<label>Email: </label>
-			<input asp-for="Email"/>
+			<input asp-for="Email" type="email" required/>
 			<p></p>
 			<label>Date of Birth: </label>
-			<input asp-for="DateOfBirth"/>
+			<input asp-for="DateOfBirth" required/>
 			<p></p>
 			<label>Is User Active: </label>
 			<input asp-for="IsActive"/>
