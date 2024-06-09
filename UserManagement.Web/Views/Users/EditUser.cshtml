@@ -1,0 +1,47 @@
+﻿@model UserManagement.Web.Models.Users.UserListItemViewModel
+@{
+	var id = Model.Id;
+	var forename = Model.Forename;
+	var surname = Model.Surname;
+	var email = Model.Email;
+	var DoB = Model.DateOfBirth;
+	bool isActive = Model.IsActive;
+
+	
+}
+
+<h1>Edit User</h1>
+<div>
+	
+		<form asp-asp-controller="Users" asp-action="ApplyEditUser">
+			<fieldset>
+
+				<label>ID: </label>
+				<input value="@id" asp-for="Id" readonly/>
+				<p></p>
+				<label>First Name: </label>
+				<input value="@forename" asp-for="Forename" required/>
+				<p></p>
+
+				<label>Surname: </label>
+				<input value="@surname" asp-for="Surname" required/>
+				<p></p>
+
+				<label>Email: </label>
+				<input value="@email" asp-for="Email" required/>
+				<p></p>
+
+				<label>Date of Birth: </label>
+				<input value="@DoB" asp-for="DateOfBirth" required/>
+				<p></p>
+
+				<label>Is User Active: </label>
+				<input type="checkbox" checked="@isActive" asp-for="IsActive"/>
+				<p></p>
+
+				<input type="submit" class="btn btn-primary"/>
+			</fieldset>
+		</form>
+	
+</div>
+

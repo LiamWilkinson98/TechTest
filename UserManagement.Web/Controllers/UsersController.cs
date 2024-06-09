@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.EntityFrameworkCore;
 using UserManagement.Models;
 using UserManagement.Services.Domain.Implementations;
 using UserManagement.Services.Domain.Interfaces;
@@ -85,9 +86,8 @@ public class UsersController : Controller
     }
 
     [Route("AddUser")]
-    [HttpGet]
     public ViewResult AddUser()
-    {
+    {        
         //change to AddUser page
         return View();
     }
@@ -100,4 +100,39 @@ public class UsersController : Controller
         _userService.AddUser(user);
         return RedirectToAction();
     }
+    [Route("DeleteUser")]
+    public ActionResult DeleteUser(long userId)
+    {
+        _userService.DeleteUser(userId);
+        return RedirectToAction("");
+    }
+
+    [Route("EditUser")]
+    [HttpGet]
+    public ActionResult EditUser(long userId)
+    {
+        //call FilterById to select user account with matching ID
+        var items = _userService.FilterById(userId).Select(p => new UserListItemViewModel
+        {
+            Id = userId,
+            Forename = p.Forename,
+            Surname = p.Surname,
+            Email = p.Email,
+            DateOfBirth = p.DateOfBirth,
+            IsActive = p.IsActive
+        });
+
+        var user = items.First();
+
+        //Populate EditUser page with user that has been selected
+        return View(user);
+    }
+    [Route("ApplyEditUser")]
+    [HttpPost]
+    public ActionResult ApplyEditUser(User user)
+    {
+        _userService.UpdateUser(user);
+        return RedirectToAction("");
+    }
+
 }

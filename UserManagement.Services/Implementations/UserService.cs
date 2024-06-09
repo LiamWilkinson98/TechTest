@@ -36,5 +36,17 @@ public class UserService : IUserService
         _dataAccess.Create(user);
     }
 
+    public void DeleteUser(long userId)
+    {
+        User user = new User();
+        user.Id = userId;
+        _dataAccess.Delete(user);
+    }
+
+    public void UpdateUser(User user)
+    {
+        _dataAccess.Update(user);
+    }
+
     public IEnumerable<User> GetAll() => _dataAccess.GetAll<User>();
 }
