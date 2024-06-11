@@ -4,7 +4,7 @@
 	var forename = Model.Forename;
 	var surname = Model.Surname;
 	var email = Model.Email;
-	var DoB = DateTime.Parse(Model.DateOfBirth!);
+	var DoB = DateOnly.Parse(Model.DateOfBirth!).ToString();
 	bool isActive = Model.IsActive;
 
 	
@@ -20,11 +20,11 @@
 				<input value="@id" asp-for="Id" readonly/>
 				<p></p>
 				<label>First Name: </label>
-				<input value="@forename" asp-for="Forename" type="text" required/>
+				<input name="forename" id="forename" value="@forename" asp-for="Forename" required/>
 				<p></p>
 
 				<label>Surname: </label>
-				<input value="@surname" asp-for="Surname" required/>
+				<input name="surname" id="surname" value="@surname" asp-for="Surname" required/>
 				<p></p>
 
 				<label>Email: </label>
@@ -32,7 +32,7 @@
 				<p></p>
 
 				<label>Date of Birth: </label>
-				<input value="@DoB" asp-for="DateOfBirth" asp-format="{0:dd/MM/yyyy}"required/>
+				<input type="input" id="dateOfBirth" value="@DoB" asp-for="DateOfBirth" asp-format="{0:dd/MM/yyyy}"required readonly/>
 				<p></p>
 
 				<label>Is User Active: </label>

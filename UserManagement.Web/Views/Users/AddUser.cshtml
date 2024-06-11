@@ -4,25 +4,26 @@
 <h1>Create A User</h1>
 
 <div>
-	<form asp-controller="Users" asp-action="CreateUser">
+	<form name="userDetails" asp-controller="Users" asp-action="CreateUser">
 		<fieldset>
 			<label>First Name: </label>
-			<input asp-for="Forename" required/>
+			<input name="forename" id="forename" asp-for="Forename" required/>
 			<p></p>
 			<label>Surname: </label>
-			<input asp-for="Surname" required/>
+			<input name="surname" id="surname" asp-for="Surname" required/>
 			<p></p>
 			<label>Email: </label>
 			<input asp-for="Email" type="email" required/>
 			<p></p>
 			<label>Date of Birth: </label>
-			<input asp-for="DateOfBirth" required/>
+				<input type="input" id="dateOfBirth" asp-for="DateOfBirth" asp-format="{0:dd/MM/yyyy}"required readonly/>
 			<p></p>
 			<label>Is User Active: </label>
 			<input asp-for="IsActive"/>
 			<p></p>
-			<input type="submit" />
+			<input type="submit"  class="btn btn-primary" />
 		</fieldset>
 	</form>
 </div>
+
 
