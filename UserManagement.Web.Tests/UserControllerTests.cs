@@ -23,7 +23,8 @@ public class UserControllerTests
             .Which.Items.Should().BeEquivalentTo(users);
     }
 
-    private User[] SetupUsers(string forename = "Johnny", string surname = "User", string email = "juser@example.com", bool isActive = true)
+
+    private User[] SetupUsers(string forename = "Johnny", string surname = "User", string email = "juser@example.com", string dateofbirth = "21/02/1998", bool isActive = true)
     {
         var users = new[]
         {
@@ -32,6 +33,7 @@ public class UserControllerTests
                 Forename = forename,
                 Surname = surname,
                 Email = email,
+                DateOfBirth = dateofbirth,
                 IsActive = isActive
             }
         };
